@@ -1,20 +1,7 @@
-CC ?= gcc
-CFLAGS ?= -std=c17 -O2 -Wall -Wextra -Wno-misleading-indentation
-LDLIBS =
-ifeq ($(OS),Windows_NT)
-LDLIBS = -lws2_32
-endif
-
-all: ambulance
-
-ambulance: src/server.c src/engine.h
-	$(CC) $(CFLAGS) src/server.c -o ambulance $(LDLIBS)
-
-test: ambulance
-	./ambulance test
-
-run: ambulance
-	./ambulance serve 8080
-
+CC=cc
+CFLAGS=-std=c11 -Wall -Wextra -pedantic -O2
+all: ambulance_engine
+ambulance_engine: main.c engine.c engine.h
+	$(CC) $(CFLAGS) main.c engine.c -o ambulance_engine
 clean:
-	rm -f ambulance ambulance.exe
+	rm -f ambulance_engine
